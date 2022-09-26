@@ -18,7 +18,6 @@ class Auction
   end
   
   def potential_revenue
-    items_with_bids = @items.select {|item| item.current_high_bid != nil}
-    items_with_bids.sum {|item| item.current_high_bid}
+    @items.sum {|item| item.current_high_bid}
   end
 end

@@ -11,6 +11,7 @@ class Item
   end
   
   def current_high_bid
+    return 0 if @bids.empty?
     @bids.values.max
   end
 end
