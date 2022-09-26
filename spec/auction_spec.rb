@@ -136,6 +136,11 @@ RSpec.describe Auction do
       }
       expect(auction.bidder_info).to eq(result)
     end
+    
+    it "#date returns the date of the event" do
+      allow(auction).to receive(:date).and_return('01/01/2022')
+      expect(auction.date).to eq('01/01/2022')
+    end
   end
   
 end
