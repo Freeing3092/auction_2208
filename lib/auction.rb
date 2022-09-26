@@ -54,4 +54,23 @@ class Auction
     Date.today.strftime("%d/%m/%Y")
   end
   
+  def close_auction
+    auction_results = Hash.new
+    @items.each do |item|
+      auction_results[item] = bidder_info.select do |bidder|
+        bidder[:items].include?(item) && bidder.budget >= item.current_high_bid
+      require "pry"; binding.pry
+    end
+  end
+  
 end
+
+
+
+
+
+
+
+
+
+

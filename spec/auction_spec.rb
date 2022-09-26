@@ -141,6 +141,30 @@ RSpec.describe Auction do
       allow(auction).to receive(:date).and_return('01/01/2022')
       expect(auction.date).to eq('01/01/2022')
     end
+    
+    it "#close_auction returns a hash with items as the keys, and the purchaser
+    of that item as the values" do
+    auction.add_item(item1)
+    auction.add_item(item2)
+    auction.add_item(item3)
+    auction.add_item(item4)
+    auction.add_item(item5)
+    item1.add_bid(attendee1, 22)
+    item1.add_bid(attendee2, 20)
+    item4.add_bid(attendee2, 30)
+    item4.add_bid(attendee3, 50)
+    item3.add_bid(attendee2, 15)
+    item5.add_bid(attendee1, 35)
+    
+    result = {item5 => attendee1,
+              item1 => attendee2,
+              item4 => attendee3,
+              item3 => attendee2,
+              item2 => 'Not Sold'
+    }
+    
+    expect(auction.close_auction).to eq(result)
+    end
   end
   
 end
