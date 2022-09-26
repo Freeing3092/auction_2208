@@ -15,6 +15,7 @@ RSpec.describe Item do
     it "has readable attributes" do
       expect(item1.name).to eq("Chalkware Piggy Bank")
       expect(item1.bids).to eq({})
+      expect(item1.closed).to eq(false)
     end
   end 
   
@@ -33,6 +34,17 @@ RSpec.describe Item do
       item1.add_bid(attendee1, 22)
       
       expect(item1.current_high_bid).to eq(22)
+    end
+    
+    it "#close_bidding discontinues the add_bid method for an item" do
+      item1.add_bid(attendee2, 20)
+      item1.add_bid(attendee1, 22)
+      result = {attendee2 => 20, attendee1 => 22}
+      
+      item1.close_bidding
+      item1.add_bid(attendee2, 70)
+      
+      expect(item1.bids).to eq(result)
     end
   end
 end 
