@@ -31,5 +31,21 @@ class Auction
     names.uniq
   end
   
+  def unique_bidders
+    uniq_bidders = @items.map do |item|
+      item.bids.keys
+    end.flatten.uniq
+  end
+  
+  def bidder_info
+    uniq_bidders = unique_bidders
+    bidders_hash = Hash.new
+    uniq_bidders.each do |bidder|
+      bidders_hash[bidder] = {:budget => bidder.budget,
+        :items => @items.select { |item| item.bids.include?(bidder)}
+      }
+    end
+    bidders_hash
+  end
   
 end
