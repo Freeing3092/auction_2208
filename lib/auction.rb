@@ -20,4 +20,16 @@ class Auction
   def potential_revenue
     @items.sum {|item| item.current_high_bid}
   end
+  
+  def bidders
+    names = []
+    @items.each do |item|
+      item.bids.each_key do |attendee|
+        names << attendee.name
+      end
+    end
+    names.uniq
+  end
+  
+  
 end
